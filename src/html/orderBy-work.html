@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>第7单元orderBy排序与自定义指令</title>
+		<link rel="stylesheet" href="../lib/bootstrap.css" />
+	</head>
+	<body >
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<form class="form-search">
+					  <input type="text" class="input-medium search-query">
+					  <button type="submit" class="btn">Search</button>
+					</form>
+					</div>
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<div class="row" ng-app="app" ng-controller="appController">
+				<table class="table">
+					<thead>
+	 					<tr>
+	 						<td  ng-click="toggleSort()">产品编号<span class="caret"></span></td>
+	 						<td  ng-click="toggleSort2()">产品名称<span class="caret" ></span></td>
+	 						<td>产品价格<span class="caret" ng-click="toggleSort()"></span></td>
+	 					</tr>
+ 					</thead>
+ 					<tbody>
+	 					<tr ng-repeat="x in data">   <!--便利渲染页面-->
+	 						<td>{{x.Number}}</td>
+	 						<td>{{x.Name}}</td>
+	 						<td>{{x.Rmb}}</td>
+	 					</tr>
+ 					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+	<script src="../lib/angular.js"></script>
+	<script>
+		var app=angular.module("app",[])
+		app.controller("appController",function($scope,$http){
+			$scope.sortIsAsc=true;
+			$scope.data=[
+			{
+				"Number":"5661",
+				"Name":"ipone2",
+				"Rmb":"(rmb)1.000.00"
+			},{
+				"Number":"3333",
+				"Name":"ipone4",
+				"Rmb":"(rmb)7.000.00"
+			},{
+				"Number":"6688",
+				"Name":"ipone3",
+				"Rmb":"(rmb)2.000.00"
+			},{
+				"Number":"2222",
+				"Name":"ipone6",
+				"Rmb":"(rmb)3.000.00"
+			},{
+				"Number":"1200",
+				"Name":"ipone1",
+				"Rmb":"(rmb)5.000.00"
+			}]
+			$scope.toggleSort = function(){
+                $scope.sortIsAsc = !$scope.sortIsAsc;
+                $scope.data.sort(function(a, b){
+                    if($scope.sortIsAsc){
+                    	console.log(getNum(a.Name))
+                        if (a.Number < b.Number) {
+                            return -1;
+                           
+                        }else if(a.Number===b.Number){
+                        	return 0
+                        }
+                        return 1;
+                    } 
+                    if (a.Number > b.Number) {
+                        return -1;      
+                    }else if(a.Number===b.Number){
+                        return 0
+                    }
+                        return 1;
+                });
+            };
+            $scope.toggleSort2 = function(){
+                $scope.sortIsAsc = !$scope.sortIsAsc;
+                $scope.data.sort(function(a, b){
+                	var a=(a.Name).replace(/[^0-9]/ig,"")
+                	var b=(b.Name).replace(/[^0-9]/ig,"")
+                    if($scope.sortIsAsc){
+                    	
+                        if ( a < b ) {
+                            return -1;
+                           
+                        }else if(a===b){
+                        	return 0
+                        }
+                        return 1;
+                    } 
+                    if (a> b) {
+                        return -1;      
+                    }else if(a===b){
+                        return 0
+                    }
+                        return 1;
+                });
+            };
+            function getNum(text){
+				var value = text.replace(/[^0-9]/ig,""); //不区分大小写/全局
+			}
+            
+		})
+	</script>
+</html>

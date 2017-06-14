@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<title>6月12日</title>
+	</head>
+	<body>
+		<script src="../lib/angular.js"></script>
+		<script src="../lib/jquery.js"></script>
+		<script> 
+////jquery		
+////			//1创建一个延时对象将异步变同步
+////			var a=1;
+////			var $defer=$.Deferred();
+////			setTimeout(function(){
+////				var a=5
+//////				$defer.resolve(a) //成功的标记
+////				$defer.reject("err")//失败的标记
+////			},1000)
+////			//相当于一个回调
+////			$defer.then(function(data){
+////				console.log(data)
+////			},function(i){
+////				console.log(i)
+////			})
+////			
+//			//2
+//
+//			var a=1;
+//			var $defer=$.Deferred();
+//			var $defer2=$.Deferred()
+//			setTimeout(function(){
+//				var a=5
+//				$defer.resolve(a) //成功的标记
+//				return $defer.promise()
+//////				$defer.reject("err")//失败的标记
+//			},1000)
+//			setTimeout(function(){
+//				var a=5
+//				$defer.resolve(a) //成功的标记
+//////				$defer2.reject(a)//失败的标记
+//			},2000)
+//			//相当于一个回调
+//			var state=[]
+//			$defer.promise().(function(data){
+//				console.log(data)
+//				return $defer2
+//			},function(i){
+//				console.log(i)
+//			}).then(function(data){
+//				console.log(data)
+//			},function(err){
+//				
+//			})
+////			$defer2.then(function(data){
+////				console.log(data)
+////			}).then(function(data){
+////				console.log(i)
+////			})
+////并行
+//$.when($defer,$defer2).done(function(data1,data2){
+//	console.log(data1)
+//}).fail(data1,data2){
+//	console.log()
+//}
+//	//anguler
+var app=angular.module("myapp",[])
+app.controller("ft",function($q){
+	var $defer=$.Deferred();
+	var $defer2=$q.defer()
+		setTimeout(function(){
+			$defer.resolve("12345")
+		},1000)
+		setTimeout(function(){
+			$defer2s.resolve("12345")
+		},1000)
+		$q.all([$defer.promise,$defer2.promise]).then(function(data){
+			console.log(data)
+		})
+//	$defer.then(function(err1,err2){
+//		console.log(err1)
+//		console.log(err2)
+//	})
+})
+
+		</script>
+	</body>
+</html>
+ 
